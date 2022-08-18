@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Correcto";
+}
+
+<div class="text-center">
+    <img src="/img/fondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
+    <h1 style="position: relative; color:white;">Respuesta Correcta</h1>
+    <img src="/img/correcto.jpg" style="position:relative; width:700px; height:500px;"></br>
+    <p></p>
+    <a class="btn btn-success" href='@Url.Action("Pregunta","Home")' style="position:relative; font-size:32px;">Continuar</a>
+    <a class="btn btn-danger" href='@Url.Action("PantallaFinDelJuego","Home")' style="position:relative; font-size:32px;">Plantarse</a>
+</div>
