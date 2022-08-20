@@ -26,24 +26,25 @@ public class HomeController : Controller
     public IActionResult Jugar(string Nombre)
     {
         int id = 1;
-        BD.GuardarUsuario(Nombre);
-        ViewBag.Pregunta = BD.ListarPregunta(id);
-        ViewBag.ListaRespuestas = BD.ListarRespuestas(id);
-        ViewBag.Player = Nombre;
-        ViewBag.ListaPozos = ListaPozos;
+        DateTime FechaHora = DateTime.Now;
+        JuegoQQSM.IniciarJuego(Nombre, FechaHora);
+        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
+        ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
         return View("Pregunta");
     }
 
     public IActionResult PreguntaRespondida(char Opcion1, char Opcion2)
     {
-        char Correcta = BD.ListarCorrecta(id);
-        if(Opcion1 == Correcta || Opcion2 == Correcta) return View("RespuestaPreguntaOK");
+        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion1,Opcion2);
+        if(Correcta) return View("RespuestaPreguntaOK");
         else return View("PantallaFinDelJuego");
     }
 
     public IActionResult FinDelJuego()
     {
-        ViewBag.Player = BD.ListarJugador(id);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
         return View("PantallaFinDelJuego");
     }
 
