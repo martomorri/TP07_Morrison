@@ -7,10 +7,12 @@ using Dapper;
 public static class JuegoQQSM
 {
     private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo; private static Jugador _Player;
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo; private static Jugador _Player; private static List<int> _PreguntasRespondidas;
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
-        _PreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
+        Random rand = new Random();
+        int num = rand.Next(1, 15);
+        _PreguntaActual = num; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "CrearJugador";
@@ -19,8 +21,19 @@ public static class JuegoQQSM
     }
     public static Pregunta ObtenerProximaPregunta()
     {
-        _PreguntaActual++;
         Pregunta pregunta = null;
+        int i = 0;
+        while (i < _PreguntasRespondidas.Count)
+        {
+            while (_PreguntaActual == _PreguntasRespondidas[i])
+            {
+                i = 0;
+                Random rand = new Random();
+                int num = rand.Next(1, 15);
+                _PreguntaActual = num;
+            }
+            i++;
+        }
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "ListarPreguntasXID";
@@ -47,12 +60,13 @@ public static class JuegoQQSM
     }
     public static bool RespuestaUsuario(char Opcion, char OpcionComodin)
     {
+        _PreguntasRespondidas.Add(_PreguntaActual);
         if (OpcionComodin != null)
         {
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 string sp = "ActualizarComodinDobleChance";
-                db.Execute(sp, new {@IdJugador = _Player.IdJugador});
+                db.Execute(sp, new { @IdJugador = _Player.IdJugador });
             }
         }
         if (Opcion == _RespuestaCorrectaActual || OpcionComodin = _RespuestaCorrectaActual)
@@ -78,28 +92,28 @@ public static class JuegoQQSM
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 string sp = "ActualizarComodin50";
-                db.Execute(sp, new {@IdJugador = _Player.IdJugador});
+                db.Execute(sp, new { @IdJugador = _Player.IdJugador });
             }
             List<Respuesta> ListaRespuestas = ObtenerRespuestas();
             char[] VecIncorrectas = new char[2];
             Random rand = new Random();
-            int num1 = rand.Next(1,4);
+            int num1 = rand.Next(1, 4);
             if (ListaRespuestas[num1].Correcta == false) VecIncorrectas[0] = ListaRespuestas[num1].OpcionRespuesta;
             else
             {
                 while (ListaRespuestas[num1].Correcta == true)
                 {
-                    num1 = rand.Next(1,4);
+                    num1 = rand.Next(1, 4);
                 }
                 VecIncorrectas[0] = ListaRespuestas[num1].OpcionRespuesta;
             }
-            int num2 = rand.Next(1,4);
+            int num2 = rand.Next(1, 4);
             if (ListaRespuestas[num2].Correcta == false) VecIncorrectas[0] = ListaRespuestas[num2].OpcionRespuesta;
             else
             {
                 while (ListaRespuestas[num2].Correcta == true)
                 {
-                    num2 = rand.Next(1,4);
+                    num2 = rand.Next(1, 4);
                 }
                 VecIncorrectas[0] = ListaRespuestas[num2].OpcionRespuesta;
             }
@@ -110,12 +124,24 @@ public static class JuegoQQSM
     {
         if (_Player.ComodinSaltear == true)
         {
+            _PreguntasRespondidas.Add(_PreguntaActual);
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
                 string sp = "ActualizarComodinSaltear";
-                db.Execute(sp, new {@IdJugador = _Player.IdJugador});
+                db.Execute(sp, new { @IdJugador = _Player.IdJugador });
             }
-            _PreguntaActual++;
+            int i = 0;
+            while (i < _PreguntasRespondidas.Count)
+            {
+                while (_PreguntaActual == _PreguntasRespondidas[i])
+                {
+                    i = 0;
+                    Random rand = new Random();
+                    int num = rand.Next(1, 15);
+                    _PreguntaActual = num;
+                }
+                i++;
+            }
         }
     }
     public static Jugador DevolverJugador()
