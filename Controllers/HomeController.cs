@@ -48,6 +48,26 @@ public class HomeController : Controller
         return View("PantallaFinDelJuego");
     }
 
+    public IActionResult Comodin50()
+    {
+        ViewBag.VecIncorrectas = JuegoQQSM.Descartar50();
+        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
+        ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        return View("Pregunta");
+    }
+
+    public IActionResult ComodinSalear()
+    {
+        JuegoQQSM.SaltearPregunta();
+        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
+        ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        return View("Pregunta");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

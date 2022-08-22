@@ -7,12 +7,12 @@ using Dapper;
 public static class JuegoQQSM
 {
     private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo; private static Jugador _Player; private static List<int> _PreguntasRespondidas;
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo; private static Jugador _Player; private static List<int> _PreguntasRespondidas;
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
         Random rand = new Random();
-        int num = rand.Next(1, 15);
-        _PreguntaActual = num; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
+        int num = rand.Next(1, 5);
+        _PreguntaActual = num; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "CrearJugador";
@@ -21,7 +21,7 @@ public static class JuegoQQSM
     }
     public static Pregunta ObtenerProximaPregunta()
     {
-        Pregunta pregunta = null;
+        List<Pregunta> ListaPreguntas = new List<Pregunta>();
         int i = 0;
         while (i < _PreguntasRespondidas.Count)
         {
@@ -29,17 +29,20 @@ public static class JuegoQQSM
             {
                 i = 0;
                 Random rand = new Random();
-                int num = rand.Next(1, 15);
+                int num = rand.Next(1, 5);
                 _PreguntaActual = num;
             }
             i++;
         }
+        if (_PosicionPozo > 5 && _PosicionPozo <= 10) _DificultadPreguntaActual = 2;
+        else if (_PosicionPozo > 10) _DificultadPreguntaActual = 3;
+        else _DificultadPreguntaActual = 1;
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sp = "ListarPreguntasXID";
-            pregunta = db.QueryFirstOrDefault(sp, new { @IdPregunta = _PreguntaActual }, commandType: CommandType.StoredProcedure);
+            string sp = "ListarPreguntasXDificultad";
+            ListaPreguntas = db.Query(sp, new { @Dificultad = _DificultadPreguntaActual }, commandType: CommandType.StoredProcedure).ToList();
         }
-        return pregunta;
+        return ListaPreguntas[_PreguntaActual];
     }
     public static List<Respuesta> ObtenerRespuestas()
     {
