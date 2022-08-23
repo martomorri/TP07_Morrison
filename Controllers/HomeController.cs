@@ -26,7 +26,6 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Jugar(string Nombre)
     {
-        int id = 1;
         DateTime FechaHora = DateTime.Now;
         JuegoQQSM.IniciarJuego(Nombre, FechaHora);
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
@@ -40,7 +39,13 @@ public class HomeController : Controller
     {
         bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion1,Opcion2);
         if(Correcta) return View("RespuestaPreguntaOK");
-        else return View("PantallaFinDelJuego");
+        else
+        {
+            ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
+            ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+            ViewBag.Player = JuegoQQSM.DevolverJugador();
+            return View("PantallaFinDelJuego");
+        }
     }
 
     public IActionResult FinDelJuego()
