@@ -6,13 +6,13 @@
     <img src="/img/fondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
     <img src="/img/logo.png" style="z-index: 999; position: relative;" width="50%"></br>
     <p></p>
-    <form>
+    <form action='@Url.Action("Jugar","Home")' method="POST">
         <div class="form-row">
             <div class="col-10">
                 <input class="form-control" type="text" name="Nombre" placeholder="Nombre">
             </div>
             <div class="col-2">
-                <a href='@Url.Action("Pregunta","Home")' class="btn btn-outline-light">Comenzar</a>
+                <input type="submit" value="Comenzar" class="btn btn-primary">
             </div>
         </div>
     </form>

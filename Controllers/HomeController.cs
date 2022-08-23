@@ -22,7 +22,8 @@ public class HomeController : Controller
     {
         return View();
     }
-
+    
+    [HttpPost]
     public IActionResult Jugar(string Nombre)
     {
         int id = 1;

@@ -4,28 +4,63 @@
 
 <div class="text-center">
     <img src="/img/preguntaFondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
-    <h1 style="position:absolute; top:10%; left:80%; color:white;">Jugador: Morro</h1>
-    <p style="position:absolute; top:20%; left: 80%; background-color:red; color:black; font-weight:bold;">15 - $2.000.000</p>
-    <p style="position:absolute; top:22.5%; left: 80%; background-color:red; color:black;">14 - $1.000.000</p>
-    <p style="position:absolute; top:25%; left: 80%; background-color:red; color:black;">13 - $750.000  </p>
-    <p style="position:absolute; top:27.5%; left: 80%; background-color:red; color:black;">12 - $500.000  </p>
-    <p style="position:absolute; top:30%; left: 80%; background-color:red; color:black;">11 - $300.000  </p>
-    <p style="position:absolute; top:32.5%; left: 80%; background-color:yellow; color:black; font-weight:bold;">10 - $180.000  </p>
-    <p style="position:absolute; top:35%; left: 80%; background-color:yellow; color:black;">9 - $130.000   </p>
-    <p style="position:absolute; top:37.5%; left: 80%; background-color:yellow; color:black;">8 - $100.000   </p>
-    <p style="position:absolute; top:40%; left: 80%; background-color:yellow; color:black;">7 - $70.000    </p>
-    <p style="position:absolute; top:42.5%; left: 80%; background-color:yellow; color:black;">6 - $50.000    </p>
-    <p style="position:absolute; top:45%; left: 80%; background-color:lightgreen; color:black; font-weight:bold;">5 - $30.000    </p>
-    <p style="position:absolute; top:47.5%; left: 80%; background-color:lightgreen; color:black;">4 - $20.000    </p>
-    <p style="position:absolute; top:50%; left: 80%; background-color:lightgreen; color:black;">3 - $10.000    </p>
-    <p style="position:absolute; top:52.5%; left: 80%; background-color:lightgreen; color:black;">2 - $5.000     </p>
-    <p style="position:absolute; top:55%; left: 80%; background-color:rgb(0, 102, 255); color:black;">1 - $2.000     </p>
-    <h1 style="position:absolute; top:59%; left:30%; color:white;">¿Donde jugo Juan Roman Riquelme?</h1>
-    <a href='@Url.Action("PantallaFinDelJuego","Home")' class="btn btn-outline-light" style="position:absolute; top:75%; left:25%; font-size:32px; border:0;">River</a>
-    <a href='@Url.Action("PantallaFinDelJuego","Home")' class="btn btn-outline-light" style="position:absolute; top:75%; left:60%; font-size:32px; border:0;">Banfield</a>
-    <a href='@Url.Action("RespuestaPreguntaOK","Home")' class="btn btn-outline-light" style="position:absolute; top:87%; left:25%; font-size:32px; border:0;">Boca</a>
-    <a href='@Url.Action("PantallaFinDelJuego","Home")' class="btn btn-outline-light" style="position:absolute; top:87%; left:60%; font-size:32px; border:0;">Lanus</a>
-    <a href="#" class="btn btn-secondary" style="position:absolute; top: 10%; left:10%; border:0; font-size:32px;">50/50</a>
-    <a href="#" class="btn btn-secondary" style="position:absolute; top: 10%; left:16%; border:0; font-size:32px;">Chance X2</a>
-    <a href="#" class="btn btn-secondary" style="position:absolute; top: 17%; left:11%; border:0; font-size:32px;">Saltear Pregunta</a>
+    <h1 style="position:absolute; top:10%; left:80%; color:white;">Jugador: @ViewBag.Player.Nombre</h1>
+    @{
+        int posPozo = 15, top = 20;
+        string fontWeight, bgColor;
+        foreach (Pozo pozo in ViewBag.ListaPozos)
+        {
+            if (pozo.ValorSeguro = true) fontWeight = "normal";
+            else fontWeight = "bold";
+            if (posPozo <= 5) bgColor = "lightgreen";
+            else if (posPozo > 5 && posPozo <= 10) bgColor = "yellow";
+            else bgColor = "red";
+            <p style="position:absolute; top:@top%; left: 80%; background-color:@bgColor; color:black; font-weight:bold;">
+                @posPozo - $@pozo.Importe</p>
+            posPozo--;
+            top += 2.5;
+        }
+        <h1 style="position:absolute; top:67%; left:40%; color:white;">@ViewBag.Pregunta.TextoPregunta</h1>
+        int top = 0, left = 0;
+        foreach (Respuesta resp in ViewBag.ListaRepsuestas)
+        {
+            if (resp.OpcionRespuesta = 'A') top = 75; left = 25;
+            if (resp.OpcionRespuesta = 'B') top = 75; left = 60;
+            if (resp.OpcionRespuesta = 'C') top = 87; left = 25;
+            if (resp.OpcionRespuesta = 'D') top = 87; left = 60;
+            <a href='@Url.Action("PreguntaRespondida","Home")' class="btn btn-outline-light"
+            style="position:absolute; top:@top%; left:@left%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
+        }
+    }
+    <a href='@Url.Action("Comodin50","Home")' class="btn btn-secondary"
+        style="position:absolute; top: 10%; left:10%; border:0; font-size:32px;">50/50</a>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">
+        Chance X2
+    </button>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">@ViewBag.Pregunta.TextoPregunta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action='@Url.Action("PreguntaRespondida","Home")' method="POST">
+                    <div class="modal-body">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="Opcion1" Name="Opcion1">
+                            <label class="form-check-label" for="Opcion1">@resp.TextoRespuesta</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Enviar" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href='@Url.Action("ComodinSaltear","Home")' class="btn btn-secondary"
+        style="position:absolute; top: 24%; left:10%; border:0; font-size:32px;">Saltear</a>
 </div>

@@ -11,8 +11,23 @@ public static class JuegoQQSM
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
         Random rand = new Random();
-        int num = rand.Next(1, 5);
+        int num = rand.Next(1, 6);
         _PreguntaActual = num; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
+        _ListaPozo.Add(2000,false);
+        _ListaPozo.Add(5000,false);
+        _ListaPozo.Add(10000,false);
+        _ListaPozo.Add(20000,false);
+        _ListaPozo.Add(30000,true);
+        _ListaPozo.Add(50000,false);
+        _ListaPozo.Add(70000,false);
+        _ListaPozo.Add(100000,false);
+        _ListaPozo.Add(130000,false);
+        _ListaPozo.Add(180000,true);
+        _ListaPozo.Add(300000,false);
+        _ListaPozo.Add(500000,false);
+        _ListaPozo.Add(750000,false);
+        _ListaPozo.Add(1000000,false);
+        _ListaPozo.Add(2000000,true);
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "CrearJugador";
@@ -29,7 +44,7 @@ public static class JuegoQQSM
             {
                 i = 0;
                 Random rand = new Random();
-                int num = rand.Next(1, 5);
+                int num = rand.Next(1, 6);
                 _PreguntaActual = num;
             }
             i++;
@@ -42,7 +57,7 @@ public static class JuegoQQSM
             string sp = "ListarPreguntasXDificultad";
             ListaPreguntas = db.Query(sp, new { @Dificultad = _DificultadPreguntaActual }, commandType: CommandType.StoredProcedure).ToList();
         }
-        return ListaPreguntas[_PreguntaActual];
+        return ListaPreguntas[_PreguntaActual - 1];
     }
     public static List<Respuesta> ObtenerRespuestas()
     {
