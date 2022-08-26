@@ -6,32 +6,32 @@ using System.Data;
 using Dapper;
 public static class JuegoQQSM
 {
-    private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<int> _ListaPozo; private static Jugador _Player; private static List<int> _PreguntasRespondidas;
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-031; DataBase=JuegoQQSM; Trusted_Connection=True;";
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas;
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
         Random rand = new Random();
         int num = rand.Next(1, 6);
         _PreguntaActual = num; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
-        _ListaPozo.Add(2000);
-        _ListaPozo.Add(5000);
-        _ListaPozo.Add(10000);
-        _ListaPozo.Add(20000);
-        _ListaPozo.Add(30000);
-        _ListaPozo.Add(50000);
-        _ListaPozo.Add(70000);
-        _ListaPozo.Add(100000);
-        _ListaPozo.Add(130000);
-        _ListaPozo.Add(180000);
-        _ListaPozo.Add(300000);
-        _ListaPozo.Add(500000);
-        _ListaPozo.Add(750000);
-        _ListaPozo.Add(1000000);
-        _ListaPozo.Add(2000000);
+        _ListaPozo.Add(new Pozo(2000,false));
+        _ListaPozo.Add(new Pozo(5000,false));
+        _ListaPozo.Add(new Pozo(10000,false));
+        _ListaPozo.Add(new Pozo(20000,false));
+        _ListaPozo.Add(new Pozo(30000,true));
+        _ListaPozo.Add(new Pozo(50000,false));
+        _ListaPozo.Add(new Pozo(70000,false));
+        _ListaPozo.Add(new Pozo(100000,false));
+        _ListaPozo.Add(new Pozo(130000,false));
+        _ListaPozo.Add(new Pozo(180000,true));
+        _ListaPozo.Add(new Pozo(300000,false));
+        _ListaPozo.Add(new Pozo(500000,false));
+        _ListaPozo.Add(new Pozo(750000,false));
+        _ListaPozo.Add(new Pozo(1000000,false));
+        _ListaPozo.Add(new Pozo(2000000,true));
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "CrearJugador";
-            db.Execute(sp, new { @Nombre = Nombre, @FechaHora = FechaHora }, commandType: CommandType.StoredProcedure);
+            db.Execute(sp, new { @Nombre = Nombre, @FechaHora = FechaHora, @PozoGanado = _PozoAcumulado, @ComodinDobleChance = _ComodinDobleChance, @Comodin50 = _Comodin5050, @ComodinSaltear = _ComodinSaltearPregunta }, commandType: CommandType.StoredProcedure);
         }
     }
     public static Pregunta ObtenerProximaPregunta()
@@ -89,13 +89,13 @@ public static class JuegoQQSM
         }
         if (Opcion == _RespuestaCorrectaActual || OpcionComodin == _RespuestaCorrectaActual)
         {
-            if (_ListaPozo[_PosicionPozo] == 2000000 || _ListaPozo[_PosicionPozo] == 180000 || _ListaPozo[_PosicionPozo] == 30000) _PozoAcumulado += _ListaPozo[_PosicionPozo];
+            if (_ListaPozo[_PosicionPozo].ValorSeguro == true) _PozoAcumulado += _ListaPozo[_PosicionPozo].Importe;
             _PosicionPozo++;
             return true;
         }
         else return false;
     }
-    public static List<int> ListarPozo()
+    public static List<Pozo> ListarPozo()
     {
         return _ListaPozo;
     }
