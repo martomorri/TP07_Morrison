@@ -31,7 +31,7 @@ public static class JuegoQQSM
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "CrearJugador";
-            db.Execute(sp, new { @Nombre = Nombre, @FechaHora = FechaHora, @PozoGanado = _PozoAcumulado, @ComodinDobleChance = _ComodinDobleChance, @Comodin50 = _Comodin5050, @ComodinSaltear = _ComodinSaltearPregunta }, commandType: CommandType.StoredProcedure);
+            db.Execute(sp, new { @Nombre = Nombre, @FechaHora = FechaHora }, commandType: CommandType.StoredProcedure);
         }
     }
     public static Pregunta ObtenerProximaPregunta()
@@ -113,28 +113,20 @@ public static class JuegoQQSM
                 db.Execute(sp, new { @IdJugador = _Player.IdJugador });
             }
             List<Respuesta> ListaRespuestas = ObtenerRespuestas();
+            int i = 0, pos = -1;
+            while (i < ListaRespuestas.Count && pos == -1)
+            {
+                if (ListaRespuestas[i].Correcta == true) pos = i;
+                else i++;
+            }
+            ListaRespuestas.Remove(ListaRespuestas[pos]);
             char[] VecIncorrectas = new char[2];
             Random rand = new Random();
             int num1 = rand.Next(1, 4);
-            if (ListaRespuestas[num1].Correcta == false) VecIncorrectas[0] = ListaRespuestas[num1].OpcionRespuesta;
-            else
-            {
-                while (ListaRespuestas[num1].Correcta == true)
-                {
-                    num1 = rand.Next(1, 4);
-                }
-                VecIncorrectas[0] = ListaRespuestas[num1].OpcionRespuesta;
-            }
             int num2 = rand.Next(1, 4);
-            if (ListaRespuestas[num2].Correcta == false) VecIncorrectas[0] = ListaRespuestas[num2].OpcionRespuesta;
-            else
-            {
-                while (ListaRespuestas[num2].Correcta == true)
-                {
-                    num2 = rand.Next(1, 4);
-                }
-                VecIncorrectas[0] = ListaRespuestas[num2].OpcionRespuesta;
-            }
+            while (num1 == num2) num2 = rand.Next(1, 4);
+            VecIncorrectas[0] = ListaRespuestas[num1].OpcionRespuesta;
+            VecIncorrectas[1] = ListaRespuestas[num2].OpcionRespuesta;
             return VecIncorrectas;
         }
         else return null;
@@ -148,18 +140,6 @@ public static class JuegoQQSM
             {
                 string sp = "ActualizarComodinSaltear";
                 db.Execute(sp, new { @IdJugador = _Player.IdJugador });
-            }
-            int i = 0;
-            while (i < _PreguntasRespondidas.Count)
-            {
-                while (_PreguntaActual == _PreguntasRespondidas[i])
-                {
-                    i = 0;
-                    Random rand = new Random();
-                    int num = rand.Next(1, 15);
-                    _PreguntaActual = num;
-                }
-                i++;
             }
         }
     }

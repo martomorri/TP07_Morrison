@@ -35,9 +35,23 @@ public class HomeController : Controller
         return View("Pregunta");
     }
 
-    public IActionResult PreguntaRespondida(char Opcion1, char Opcion2)
+    public IActionResult PreguntaRespondida(char Opcion)
     {
-        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion1,Opcion2);
+        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, ' ');
+        if(Correcta) return View("RespuestaPreguntaOK");
+        else
+        {
+            ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
+            ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+            ViewBag.Player = JuegoQQSM.DevolverJugador();
+            return View("PantallaFinDelJuego");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult PreguntaRespondidaDoble(char Opcion, char OpcionComodin)
+    {
+        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, OpcionComodin);
         if(Correcta) return View("RespuestaPreguntaOK");
         else
         {
@@ -54,17 +68,26 @@ public class HomeController : Controller
         return View("PantallaFinDelJuego");
     }
 
-    public IActionResult Comodin50()
+    public IActionResult Descartar50()
     {
         ViewBag.VecIncorrectas = JuegoQQSM.Descartar50();
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
         ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
-        return View("Pregunta");
+        return View("Pregunta5050");
     }
 
-    public IActionResult ComodinSalear()
+    public IActionResult DobleChance()
+    {
+        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
+        ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        return View("PreguntaDobleChance");
+    }
+
+    public IActionResult SaltearPregunta()
     {
         JuegoQQSM.SaltearPregunta();
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();

@@ -25,12 +25,17 @@
         int topR = 0, leftR = 0;
         foreach (Respuesta resp in ViewBag.ListaRepsuestas)
         {
+            bool respBorrada = false;
+            string disabledAns = "";
             if (resp.OpcionRespuesta == 'A') topR = 75; leftR = 25;
             if (resp.OpcionRespuesta == 'B') topR = 75; leftR = 60;
             if (resp.OpcionRespuesta == 'C') topR = 87; leftR = 25;
             if (resp.OpcionRespuesta == 'D') topR = 87; leftR = 60;
-            <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion1 = resp.OpcionRespuesta})' class="btn btn-outline-light"
-            style="position:absolute; top:@topR%; left:@leftR%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
+            if (resp.OpcionRespuesta == ViewBag.VecIncorrectas[0] || resp.OpcionRespuesta == ViewBag.VecIncorrectas[1]) respBorrada = true;
+            else respBorrada = false;
+            if (respBorrada) disabledAns = "disabled";
+            <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion1 = resp.OpcionRespuesta})' class="btn btn-outline-light @disabledAns"
+            aria-disabled="@respBorrada" style="position:absolute; top:@topR%; left:@leftR%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
         }
         string disabled50 = "", ariaDisabled50 = "false", disabledSkip = "", ariaDisabledSkip = "false", disabledDouble = "", ariaDisabledDouble = "false";
         if (ViewBag.Player.Comodin50 == false) disabled50 = "disabled"; ariaDisabled50 = "true";
