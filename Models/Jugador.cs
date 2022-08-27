@@ -8,7 +8,7 @@ public class Jugador
     }
     public Jugador()
     {
-        _IdJugador = 0; _Nombre = ""; _FechaHora = new DateTime(0,0,0); _PozoGanado = 0; _ComodinDobleChance = true; _Comodin50 = true; _ComodinSaltear = true;
+        _IdJugador = 0; _Nombre = ""; _FechaHora = new DateTime(1,1,1); _PozoGanado = 0; _ComodinDobleChance = true; _Comodin50 = true; _ComodinSaltear = true;
     }
     public int IdJugador
     {

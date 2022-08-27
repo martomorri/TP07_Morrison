@@ -6,13 +6,11 @@ using System.Data;
 using Dapper;
 public static class JuegoQQSM
 {
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-031; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas;
+    private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>();
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
-        Random rand = new Random();
-        int num = rand.Next(1, 6);
-        _PreguntaActual = num; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
+        _PreguntaActual = 1; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
         _ListaPozo.Add(new Pozo(2000,false));
         _ListaPozo.Add(new Pozo(5000,false));
         _ListaPozo.Add(new Pozo(10000,false));
@@ -36,6 +34,9 @@ public static class JuegoQQSM
     }
     public static Pregunta ObtenerProximaPregunta()
     {
+        Random rand = new Random();
+        int num = rand.Next(1, 6);
+        _PreguntaActual = num;
         List<Pregunta> ListaPreguntas = new List<Pregunta>();
         int i = 0;
         while (i < _PreguntasRespondidas.Count)
@@ -43,8 +44,7 @@ public static class JuegoQQSM
             while (_PreguntaActual == _PreguntasRespondidas[i])
             {
                 i = 0;
-                Random rand = new Random();
-                int num = rand.Next(1, 6);
+                num = rand.Next(1, 6);
                 _PreguntaActual = num;
             }
             i++;
@@ -59,13 +59,13 @@ public static class JuegoQQSM
         }
         return ListaPreguntas[_PreguntaActual - 1];
     }
-    public static List<Respuesta> ObtenerRespuestas()
+    public static List<Respuesta> ObtenerRespuestas(int IdPregunta)
     {
         List<Respuesta> ListaRespuestas = new List<Respuesta>();
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "ListarRespuestasXPregunta";
-            ListaRespuestas = db.Query<Respuesta>(sp, new { @IdPregunta = _PreguntaActual }, commandType: CommandType.StoredProcedure).ToList();
+            ListaRespuestas = db.Query<Respuesta>(sp, new { @IdPregunta = IdPregunta }, commandType: CommandType.StoredProcedure).ToList();
         }
         int i = 0, pos = -1;
         while (i < ListaRespuestas.Count && pos == -1)
@@ -112,7 +112,7 @@ public static class JuegoQQSM
                 string sp = "ActualizarComodin50";
                 db.Execute(sp, new { @IdJugador = _Player.IdJugador });
             }
-            List<Respuesta> ListaRespuestas = ObtenerRespuestas();
+            List<Respuesta> ListaRespuestas = ObtenerRespuestas(_PreguntaActual);
             int i = 0, pos = -1;
             while (i < ListaRespuestas.Count && pos == -1)
             {
@@ -143,8 +143,14 @@ public static class JuegoQQSM
             }
         }
     }
-    public static Jugador DevolverJugador()
+    public static Jugador DevolverJugador(DateTime FechaHora)
     {
-        return _Player;
+        Jugador Player = null;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sp = "ListarJugador";
+            Player = db.QueryFirstOrDefault<Jugador>(sp, new { @FechaHora = FechaHora }, commandType: CommandType.StoredProcedure);
+        }
+        return Player;
     }
 }

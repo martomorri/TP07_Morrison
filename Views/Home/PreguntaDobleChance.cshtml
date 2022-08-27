@@ -9,9 +9,9 @@
         int posPozo = 15;
         double topP = 20;
         string fontWeight, bgColor;
-        foreach (int pozo in ViewBag.ListaPozos)
+        foreach (Pozo pozo in ViewBag.ListaPozos)
         {
-            if (pozo == 2000000 || pozo == 180000 || pozo == 30000) fontWeight = "bold";
+            if (pozo.ValorSeguro == true) fontWeight = "bold";
             else fontWeight = "normal";
             if (posPozo <= 5) bgColor = "lightgreen";
             else if (posPozo > 5 && posPozo <= 10) bgColor = "yellow";
@@ -63,14 +63,14 @@
                 </div>
                 <form action='@Url.Action("PreguntaRespondida","Home")' method="POST">
                     <div class="modal-body">
-                        @{
-                            foreach (Respuesta resp in ViewBag.ListaRepsuestas)
+                        @{/*
+                            foreach (Respuesta resp in ViewBag.ListaRespuestas)
                             {
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input" id="Opcion" Name="Opcion">
                                     <label class="form-check-label" for="Opcion">@resp.TextoRespuesta</label>
                                 </div>
-                            }
+                            }*/
                         }
                     </div>
                     <div class="modal-footer">
