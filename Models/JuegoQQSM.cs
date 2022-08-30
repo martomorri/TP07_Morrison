@@ -8,7 +8,7 @@ using Dapper;
 namespace TP7_Morrison.Models;
 public static class JuegoQQSM
 {
-    private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-014; DataBase=JuegoQQSM; Trusted_Connection=True;";
     private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>();
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
@@ -81,7 +81,7 @@ public static class JuegoQQSM
     public static bool RespuestaUsuario(char Opcion, char OpcionComodin)
     {
         _PreguntasRespondidas.Add(_PreguntaActual);
-        if (OpcionComodin != ' ')
+        if (OpcionComodin == ' ')
         {
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
@@ -145,14 +145,13 @@ public static class JuegoQQSM
             }
         }
     }
-    public static Jugador DevolverJugador(DateTime FechaHora)
+    public static Jugador DevolverJugador()
     {
-        Jugador Player = null;
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sp = "ListarJugador";
-            Player = db.QueryFirstOrDefault<Jugador>(sp, new { @FechaHora = FechaHora }, commandType: CommandType.StoredProcedure);
+            string sp = "ListarUltimoJugador";
+            _Player = db.QueryFirstOrDefault<Jugador>(sp, commandType: CommandType.StoredProcedure);
         }
-        return Player;
+        return _Player;
     }
 }

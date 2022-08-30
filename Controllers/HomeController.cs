@@ -30,27 +30,22 @@ public class HomeController : Controller
         JuegoQQSM.IniciarJuego(Nombre, FechaHora);
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
-        ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
         return View("Pregunta");
     }
 
-    public IActionResult PreguntaRespondida(char Opcion)
+    public IActionResult Pregunta()
     {
         DateTime FechaHora = DateTime.Now;
-        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, ' ');
-        if(Correcta) return View("RespuestaPreguntaOK");
-        else
-        {
-            ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
-            ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
-            ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
-            return View("PantallaFinDelJuego");
-        }
+        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
+        ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        return View("Pregunta");
     }
 
-    [HttpPost]
-    public IActionResult PreguntaRespondidaDoble(char Opcion, char OpcionComodin)
+    public IActionResult PreguntaRespondida(char Opcion, char OpcionComodin)
     {
         DateTime FechaHora = DateTime.Now;
         bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, OpcionComodin);
@@ -59,7 +54,7 @@ public class HomeController : Controller
         {
             ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
             ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
-            ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
+            ViewBag.Player = JuegoQQSM.DevolverJugador();
             return View("PantallaFinDelJuego");
         }
     }
@@ -67,7 +62,7 @@ public class HomeController : Controller
     public IActionResult FinDelJuego()
     {
         DateTime FechaHora = DateTime.Now;
-        ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
         return View("PantallaFinDelJuego");
     }
 
@@ -77,7 +72,7 @@ public class HomeController : Controller
         ViewBag.VecIncorrectas = JuegoQQSM.Descartar50();
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
-        ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
         return View("Pregunta5050");
     }
@@ -87,7 +82,7 @@ public class HomeController : Controller
         DateTime FechaHora = DateTime.Now;
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
-        ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
         return View("PreguntaDobleChance");
     }
@@ -98,7 +93,7 @@ public class HomeController : Controller
         JuegoQQSM.SaltearPregunta();
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
-        ViewBag.Player = JuegoQQSM.DevolverJugador(FechaHora);
+        ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
         return View("Pregunta");
     }

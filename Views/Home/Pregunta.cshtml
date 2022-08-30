@@ -6,30 +6,32 @@
     <img src="/img/preguntaFondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
     <h1 style="position:absolute; top:10%; left:80%; color:white;">Jugador: @ViewBag.Player.Nombre</h1>
     @{
-        int posPozo = 15;
+        int posPozo = 1;
         double topP = 20;
         string fontWeight, bgColor;
         foreach (Pozo pozo in ViewBag.ListaPozos)
         {
+            fontWeight = "normal";
             if (pozo.ValorSeguro == true) fontWeight = "bold";
-            else fontWeight = "normal";
+             
             if (posPozo <= 5) bgColor = "lightgreen";
-            else if (posPozo > 5 && posPozo <= 10) bgColor = "yellow";
-            else bgColor = "red";
-            <p style="position:absolute; top:@topP%; left: 80%; background-color:@bgColor; color:black; font-weight:@fontWeight;">
+                else if (posPozo > 5 && posPozo <= 10) bgColor = "yellow";
+                    else bgColor = "red";
+            string stringTop = topP.ToString().Replace(",",".");
+            <p style="position:absolute; top:@stringTop%; left: 80%; background-color:@bgColor; color:black; font-weight:@fontWeight;">
                 @posPozo - $@pozo.Importe</p>
-            posPozo--;
+            posPozo++;
             topP += 2.5;
         }
-        <h1 style="position:absolute; top:59%; left:30%; color:white;">@ViewBag.Pregunta.TextoPregunta</h1>
+        <h1 style="position:absolute; top:59%; left:23%; color:white;">@ViewBag.Pregunta.TextoPregunta</h1>
         int topR = 0, leftR = 0;
         foreach (Respuesta resp in ViewBag.ListaRespuestas)
         {
-            if (resp.OpcionRespuesta == 'A') topR = 75; leftR = 25;
-            if (resp.OpcionRespuesta == 'B') topR = 75; leftR = 60;
-            if (resp.OpcionRespuesta == 'C') topR = 87; leftR = 25;
-            if (resp.OpcionRespuesta == 'D') topR = 87; leftR = 60;
-            <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion1 = resp.OpcionRespuesta})' class="btn btn-outline-light"
+            if (resp.OpcionRespuesta == 'A') { topR = 75; leftR = 25; }
+            if (resp.OpcionRespuesta == 'B') { topR = 75; leftR = 60; }
+            if (resp.OpcionRespuesta == 'C') { topR = 87; leftR = 25; }
+            if (resp.OpcionRespuesta == 'D') { topR = 87; leftR = 60; }
+            <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion = resp.OpcionRespuesta, OpcionComodin = ' '})' class="btn btn-outline-light"
             style="position:absolute; top:@topR%; left:@leftR%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
         }
         string disabled50 = "", ariaDisabled50 = "false", disabledSkip = "", ariaDisabledSkip = "false", disabledDouble = "", ariaDisabledDouble = "false";
@@ -41,40 +43,6 @@
         style="position:absolute; top: 10%; left:10%; border:0; font-size:32px;" aria-disabled="@ariaDisabled50">50/50</a>
     <a href='@Url.Action("DobleChance","Home")' class="btn btn-secondary @disabledDouble"
         style="position:absolute; top: 17%; left:10%; border:0; font-size:32px;" aria-disabled="@ariaDisabledDouble">ChanceX2</a>
-    <!--<button type="button" class="btn btn-secondary @disabledDouble" aria-disabled="@ariaDisabledDouble"
-        style="position:absolute; top: 17%; left:10%; border:0; font-size:32px;" data-toggle="modal"
-        data-target="#exampleModalCenter">
-        Chance X2
-    </button>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">@ViewBag.Pregunta.TextoPregunta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action='@Url.Action("PreguntaRespondida","Home")' method="POST">
-                    <div class="modal-body">
-                        @{/*
-                            foreach (Respuesta resp in ViewBag.ListaRepsuestas)
-                            {
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="Opcion1" Name="Opcion1">
-                                    <label class="form-check-label" for="Opcion1">@resp.TextoRespuesta</label>
-                                </div>
-                            }*/
-                        }
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" value="Enviar" class="btn btn-success">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>-->
     <a href='@Url.Action("SaltearPregunta","Home")' class="btn btn-secondary @disabledSkip" aria-disabled="@ariaDisabledSkip"
         style="position:absolute; top: 24%; left:10%; border:0; font-size:32px;">Saltear</a>
 </div>
