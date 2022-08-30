@@ -1,4 +1,6 @@
 using System;
+
+namespace TP7_Morrison.Models;
 public class Jugador
 {
     private int _IdJugador, _PozoGanado; private string _Nombre; private DateTime _FechaHora; private bool _ComodinDobleChance, _Comodin50, _ComodinSaltear;

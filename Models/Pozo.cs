@@ -1,4 +1,6 @@
 using System;
+
+namespace TP7_Morrison.Models;
 public class Pozo
 {
     private int _Importe; private bool _ValorSeguro;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Data.SqlClient;
 using System.Data;
 using Dapper;
+
+namespace TP7_Morrison.Models;
 public static class JuegoQQSM
 {
     private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";

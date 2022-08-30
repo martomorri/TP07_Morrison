@@ -1,4 +1,6 @@
 using System;
+
+namespace TP7_Morrison.Models;
 public class Respuesta
 {
     private int _IdRespuesta, _IdPregunta; private char _OpcionRespuesta; private string _TextoRespuesta; private bool _Correcta;

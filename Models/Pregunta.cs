@@ -1,4 +1,6 @@
 using System;
+
+namespace TP7_Morrison.Models;
 public class Pregunta
 {
     private int _IdPregunta, _NivelDificultad; private string _TextoPregunta;
