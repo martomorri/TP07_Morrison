@@ -31,7 +31,7 @@
             if (resp.OpcionRespuesta == 'B') { topR = 75; leftR = 60; }
             if (resp.OpcionRespuesta == 'C') { topR = 87; leftR = 25; }
             if (resp.OpcionRespuesta == 'D') { topR = 87; leftR = 60; }
-            <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion = resp.OpcionRespuesta, OpcionComodin = ' '})' class="btn btn-outline-light"
+            <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion = resp.OpcionRespuesta})' class="btn btn-outline-light"
             style="position:absolute; top:@topR%; left:@leftR%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
         }
         string disabled50 = "", ariaDisabled50 = "false", disabledSkip = "", ariaDisabledSkip = "false", disabledDouble = "", ariaDisabledDouble = "false";

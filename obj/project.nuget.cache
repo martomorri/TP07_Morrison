@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "FpsBPR66+aAfbJs8PgHIT7d8D4qetHVG5NA/OsbYPR7obTVNPnadNhkSJaIk66DGJrdb5brz2R2wpOiSMfMojQ==",
+  "dgSpecHash": "dQ7KHHfGbXf4pVjKOUhtruQgwPgI7gNllitRQqQn9+j7Zjp9CSC5/4+YlW2BuenfM7fDMBcvm3UnSXyscVneOg==",
   "success": true,
   "projectFilePath": "C:\\Users\\46873102\\Desktop\\TP07_Morrison\\TP7_Morrison.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\46873102\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
+    "C:\\Users\\46873102\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\46873102\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\46873102\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\46873102\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",

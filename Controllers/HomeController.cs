@@ -45,16 +45,19 @@ public class HomeController : Controller
         return View("Pregunta");
     }
 
-    public IActionResult PreguntaRespondida(char Opcion, char OpcionComodin)
+    public IActionResult PreguntaRespondida(char Opcion, char OpcionComodin = ' ')
     {
         DateTime FechaHora = DateTime.Now;
         bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, OpcionComodin);
-        if(Correcta) return View("RespuestaPreguntaOK");
+        int PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
+        if (PosicionPozo == 16) { ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro(); ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.Foto = "/img/victoria.jpg"; return View("PantallaFinDelJuego"); }
+        else if(Correcta) return View("RespuestaPreguntaOK");
         else
         {
-            ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
-            ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+            ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro();
             ViewBag.Player = JuegoQQSM.DevolverJugador();
+            ViewBag.Foto = "/img/derrota.jpg";
             return View("PantallaFinDelJuego");
         }
     }

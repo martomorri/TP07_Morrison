@@ -27,7 +27,7 @@
         <form action='@Url.Action("PreguntaRespondida","Home")' method="POST">
     @{
         int topR = 0, leftR = 0;
-        foreach (Respuesta resp in ViewBag.ListaRepsuestas)
+        foreach (Respuesta resp in ViewBag.ListaRespuestas)
         {
             if (resp.OpcionRespuesta == 'A') { topR = 75; leftR = 25; }
             if (resp.OpcionRespuesta == 'B') { topR = 75; leftR = 60; }

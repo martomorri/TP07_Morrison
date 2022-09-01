@@ -8,8 +8,8 @@ using Dapper;
 namespace TP7_Morrison.Models;
 public static class JuegoQQSM
 {
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-014; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>();
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-029; DataBase=JuegoQQSM; Trusted_Connection=True;";
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>(); private static List<Respuesta> _ListaRespuestas = new List<Respuesta>();
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
         _PreguntaActual = 1; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 1; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
@@ -33,6 +33,8 @@ public static class JuegoQQSM
             string sp = "CrearJugador";
             db.Execute(sp, new { @Nombre = Nombre, @FechaHora = FechaHora }, commandType: CommandType.StoredProcedure);
         }
+        _Player = DevolverJugador();
+
     }
     public static Pregunta ObtenerProximaPregunta()
     {
@@ -78,10 +80,10 @@ public static class JuegoQQSM
         _RespuestaCorrectaActual = ListaRespuestas[pos].OpcionRespuesta;
         return ListaRespuestas;
     }
-    public static bool RespuestaUsuario(char Opcion, char OpcionComodin)
+    public static bool RespuestaUsuario(char Opcion, char OpcionComodin = ' ')
     {
         _PreguntasRespondidas.Add(_PreguntaActual);
-        if (OpcionComodin == ' ')
+        if (OpcionComodin != ' ')
         {
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
@@ -91,7 +93,7 @@ public static class JuegoQQSM
         }
         if (Opcion == _RespuestaCorrectaActual || OpcionComodin == _RespuestaCorrectaActual)
         {
-            if (_ListaPozo[_PosicionPozo].ValorSeguro == true) _PozoAcumulado += _ListaPozo[_PosicionPozo].Importe;
+            if (_ListaPozo[_PosicionPozo].ValorSeguro == true) _PozoAcumuladoSeguro += _ListaPozo[_PosicionPozo].Importe;
             _PosicionPozo++;
             return true;
         }
@@ -153,5 +155,9 @@ public static class JuegoQQSM
             _Player = db.QueryFirstOrDefault<Jugador>(sp, commandType: CommandType.StoredProcedure);
         }
         return _Player;
+    }
+    public static int DevolverPozoAcumuladoSeguro()
+    {
+        return _PozoAcumuladoSeguro;
     }
 }

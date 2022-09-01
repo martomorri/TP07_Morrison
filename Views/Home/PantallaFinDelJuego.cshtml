@@ -5,8 +5,8 @@
 <div class="text-center">
     <img src="/img/fondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
     <h1 style="position: relative; color:white;">Fin del juego</h1>
-    <img src="/img/derrota.jpg" style="position:relative; width:500px; height:500px;">
+    <img src="@ViewBag.Foto" style="position:relative; width:500px; height:500px;">
     <h1 style="position:relative; color:white;">Jugador: @ViewBag.Player.Nombre</h1>
     <h1 style="position:relative; color:white;">Pozo Ganado:</h1>
-    <h1 style="position:relative; color:white;">$@ViewBag.ListaPozos[ViewBag.PosicionPozo].Importe</h1>
+    <h1 style="position:relative; color:white;">$@ViewBag.PozoAcumuladoSeguro</h1>
 </div>
