@@ -6,24 +6,10 @@
     <img src="/img/preguntaFondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
     <h1 style="position:absolute; top:10%; left:80%; color:white;">Jugador: @ViewBag.Player.Nombre</h1>
     @{
-        int posPozo = 15;
-        double topP = 20;
-        string fontWeight, bgColor;
-        foreach (Pozo pozo in ViewBag.ListaPozos)
-        {
-            fontWeight = "normal";
-            if (pozo.ValorSeguro == true) fontWeight = "bold";
-            if (posPozo <= 5) bgColor = "lightgreen";
-            else if (posPozo > 5 && posPozo <= 10) bgColor = "yellow";
-            else bgColor = "red";
-            <p
-            style="position:absolute; top:@topP%; left: 80%; background-color:@bgColor; color:black; font-weight:@fontWeight;">
-                @posPozo - $@pozo</p>
-            posPozo--;
-            topP += 2.5;
-        }
+        string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo+1) + ".png";
+        <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:82%">
+        <h1 style="position:absolute; top:61%; left:23%; color:white; font-size:24px;">@ViewBag.Pregunta.TextoPregunta</h1>
     }
-        <h1 style="position:absolute; top:59%; left:30%; color:white;">@ViewBag.Pregunta.TextoPregunta</h1>
         <form action='@Url.Action("PreguntaRespondida","Home")' method="POST">
     @{
         int topR = 0, leftR = 0;
@@ -40,19 +26,15 @@
     <input type="submit" value="Enviar" class="btn btn-success" style="position:absolute; top:95%; left:50%; font-size:32px;">
     </form>
     @{
-        string disabled50 = "", ariaDisabled50 = "false", disabledSkip = "", ariaDisabledSkip = "false", disabledDouble =
-        "", ariaDisabledDouble = "false";
-        if (ViewBag.Player.Comodin50 == false) disabled50 = "disabled"; ariaDisabled50 = "true";
-        if (ViewBag.Player.ComodinSaltear == false) disabledSkip = "disabled"; ariaDisabledSkip = "true";
-        if (ViewBag.Player.ComodinDobleChance == false) disabledDouble = "disabled"; ariaDisabledDouble = "true";
+        string comodin50 = "/img/comodin50.png", comodinSkip = "/img/comodinSkip.png", comodinx2 = "/img/comodinx2.png";
+        if (ViewBag.Player.Comodin50 == false) comodin50 = "/img/comodin50Disabled.png";
+        if (ViewBag.Player.ComodinSaltear == false) comodinSkip = "/img/comodinSkipDisabled.png";
+        if (ViewBag.Player.ComodinDobleChance == false) comodinx2 = "/img/comodinx2Disabled.png";
     }
-    <a href='@Url.Action("Descartar50","Home")' class="btn btn-secondary @disabled50"
-        style="position:absolute; top: 10%; left:10%; border:0; font-size:32px;"
-        aria-disabled="@ariaDisabled50">50/50</a>
-    <a href='@Url.Action("DobleChance","Home")' class="btn btn-secondary @disabledDouble"
-        style="position:absolute; top: 17%; left:10%; border:0; font-size:32px;"
-        aria-disabled="@ariaDisabledDouble">ChanceX2</a>
-    <a href='@Url.Action("SaltearPregunta","Home")' class="btn btn-secondary @disabledSkip"
-        aria-disabled="@ariaDisabledSkip"
-        style="position:absolute; top: 24%; left:10%; border:0; font-size:32px;">Saltear</a>
+    <a href='@Url.Action("Descartar50","Home")'
+        style="position:absolute; top: 10%; left:5%;"><img src="@comodin50" width="110px"></a>
+    <a href='@Url.Action("DobleChance","Home")'
+        style="position:absolute; top: 10%; left:12%;"><img src="@comodinx2" width="105px"></a>
+    <a href='@Url.Action("SaltearPregunta","Home")'
+        style="position:absolute; top: 10%; left:19%;"><img src="@comodinSkip" width="110px"></a>
 </div>

@@ -31,7 +31,7 @@ public class HomeController : Controller
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
         ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("Pregunta");
     }
 
@@ -41,7 +41,7 @@ public class HomeController : Controller
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
         ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("Pregunta");
     }
 
@@ -50,7 +50,7 @@ public class HomeController : Controller
         DateTime FechaHora = DateTime.Now;
         bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, OpcionComodin);
         int PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
-        if (PosicionPozo == 16) { ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro(); ViewBag.Player = JuegoQQSM.DevolverJugador();
+        if (PosicionPozo == 14 && Correcta) { ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro(); ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.Foto = "/img/victoria.jpg"; return View("PantallaFinDelJuego"); }
         else if(Correcta) return View("RespuestaPreguntaOK");
         else
@@ -73,10 +73,10 @@ public class HomeController : Controller
     {
         DateTime FechaHora = DateTime.Now;
         ViewBag.VecIncorrectas = JuegoQQSM.Descartar50();
-        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
+        ViewBag.Pregunta = JuegoQQSM.DevolverPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
         ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("Pregunta5050");
     }
 
@@ -86,7 +86,7 @@ public class HomeController : Controller
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
         ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("PreguntaDobleChance");
     }
 
@@ -97,7 +97,7 @@ public class HomeController : Controller
         ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(ViewBag.Pregunta.IdPregunta);
         ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.ListaPozos = JuegoQQSM.ListarPozo();
+        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("Pregunta");
     }
 
