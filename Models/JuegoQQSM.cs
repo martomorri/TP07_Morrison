@@ -9,10 +9,10 @@ namespace TP7_Morrison.Models;
 public static class JuegoQQSM
 {
     private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _PozoAcumulado, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static bool _Comodin5050, _ComodinDobleChance, _ComodinSaltearPregunta; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>(); private static List<Respuesta> _ListaRespuestas = new List<Respuesta>(); private static List<Pregunta> _ListaPreguntas = new List<Pregunta>();
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>(); private static List<Respuesta> _ListaRespuestas = new List<Respuesta>(); private static List<Pregunta> _ListaPreguntas = new List<Pregunta>();
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
-        _PreguntaActual = 1; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 0; _PozoAcumuladoSeguro = 0; _PozoAcumulado = 0; _Comodin5050 = true; _ComodinDobleChance = true; _ComodinSaltearPregunta = true;
+        _PreguntaActual = 1; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 0; _PozoAcumuladoSeguro = 0;
         _ListaPozo.Add(new Pozo(2000, false));
         _ListaPozo.Add(new Pozo(5000, false));
         _ListaPozo.Add(new Pozo(10000, false));
