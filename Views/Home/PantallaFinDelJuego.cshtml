@@ -1,12 +1,20 @@
-@{
-    ViewData["Title"] = "Final";
-}
-
 <div class="text-center">
     <img src="/img/fondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
-    <h1 style="position: relative; color:white;">Fin del juego</h1>
-    <img src="@ViewBag.Foto" style="position:relative; width:500px; height:500px;">
-    <h1 style="position:relative; color:white;">Jugador: @ViewBag.Player.Nombre</h1>
-    <h1 style="position:relative; color:white;">Pozo Ganado:</h1>
-    <h1 style="position:relative; color:white;">$@ViewBag.PozoAcumuladoSeguro</h1>
+    <img src="/img/fin.png" style="position:relative; width:400px"><br>
+    <img src="/img/logo.png" style="position:relative; width:250px; height:250px;"><br>
+    <p style="position:relative; color:white; font-size:72px;"><img src="/img/jugador.png" style="position:relative; width:400px">@ViewBag.Player.Nombre</p>
+    @{
+        string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo+1) + ".png";
+        <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:80%">
+        if (ViewBag.PozoAcumuladoSeguro == 2000000) { <img src="/img/acumulado3.png" style="position:relative; width:400px"> }
+        else if (ViewBag.PozoAcumuladoSeguro == 180000) { <img src="/img/acumulado2.png" style="position:relative; width:400px"> }
+        else if (ViewBag.PozoAcumuladoSeguro == 30000) { <img src="/img/acumulado1.png" style="position:relative; width:400px"> }
+        else { <img src="/img/acumulado0.png" style="position:relative; width:400px"> }
+        if (ViewBag.Player.Comodin50 == false) { <img src="/img/comodin50Usado.png" style="position:absolute; width:100px; top: 10%; left:5%;"> }
+        else { <img src="/img/comodin50.png" style="position:absolute; width:100px; top: 10%; left:5%;"> }
+        if (ViewBag.Player.ComodinDobleChance == false) { <img src="/img/comodinx2Usado.png" style="position:absolute; width:100px; top: 30%; left:5%;"> }
+        else { <img src="/img/comodinx2.png" style="position:absolute; width:95px; top: 30%; left:5%;"> }
+        if (ViewBag.Player.Comodin50 == false) { <img src="/img/comodinSkipUsado.png" style="position:absolute; width:100px; top: 50%; left:5%;"> }
+        else { <img src="/img/comodinSkip.png" style="position:absolute; width:100px; top: 50%; left:5%;"> }
+    }
 </div>

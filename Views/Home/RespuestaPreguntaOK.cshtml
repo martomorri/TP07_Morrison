@@ -1,12 +1,20 @@
-@{
-    ViewData["Title"] = "Correcto";
-}
-
 <div class="text-center">
     <img src="/img/fondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
-    <h1 style="position: relative; color:white;">Respuesta Correcta</h1>
-    <img src="/img/correcto.jpg" style="position:relative; width:700px; height:500px;"></br>
-    <p></p>
-    <a class="btn btn-success" href='@Url.Action("Pregunta","Home")' style="position:relative; font-size:32px;">Continuar</a>
-    <a class="btn btn-danger" href='@Url.Action("PantallaFinDelJuego","Home")' style="position:relative; font-size:32px;">Plantarse</a>
+    <img src="/img/respCorrecta.png" style="position:relative; width:400px"><br>
+    <p></p><br>
+    <img src="/img/correcto.png" style="position:relative; width:300px;"><br>
+    <p></p><br>
+    <p></p><br>
+    @{
+        string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo+1) + ".png";
+        <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:80%">
+        if (ViewBag.Player.Comodin50 == false) { <img src="/img/comodin50Usado.png" style="position:absolute; width:110px; top: 10%; left:5%;"> }
+        else { <img src="/img/comodin50.png" style="position:absolute; width:110px; top: 10%; left:5%;"> }
+        if (ViewBag.Player.ComodinDobleChance == false) { <img src="/img/comodinx2Usado.png" style="position:absolute; width:110px; top: 30%; left:5%;"> }
+        else { <img src="/img/comodinx2.png" style="position:absolute; width:110px; top: 30%; left:5%;"> }
+        if (ViewBag.Player.ComodinSaltear == false) { <img src="/img/comodinSkipUsado.png" style="position:absolute; width:110px; top: 50%; left:5%;"> }
+        else { <img src="/img/comodinSkip.png" style="position:absolute; width:110px; top: 50%; left:5%;"> }
+    }
+    <a href='@Url.Action("Pregunta","Home")' style="position:relative; font-size:32px;"><img src="/img/continuar.png" width="300px"></a>
+    <a href='@Url.Action("FinDelJuego","Home")' style="position:relative; font-size:32px;"><img src="/img/plantarse.png" width="300px"></a>
 </div>

@@ -63,12 +63,12 @@ public static class JuegoQQSM
         }
         return ListaPreguntasDif[num - 1];
     }
-    public static List<Respuesta> ObtenerRespuestas(int IdPregunta)
+    public static List<Respuesta> ObtenerRespuestas()
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "ListarRespuestasXPregunta";
-            _ListaRespuestas = db.Query<Respuesta>(sp, new { @IdPregunta = IdPregunta }, commandType: CommandType.StoredProcedure).ToList();
+            _ListaRespuestas = db.Query<Respuesta>(sp, new { @IdPregunta = _PreguntaActual }, commandType: CommandType.StoredProcedure).ToList();
         }
         int i = 0, pos = -1;
         while (i < _ListaRespuestas.Count && pos == -1)

@@ -1,7 +1,3 @@
-@{
-    ViewData["Title"] = "Jugar";
-}
-
 <div class="text-center">
     <img src="/img/preguntaFondo.jpg" style="z-index: 0; position:absolute; top:0; left:0; width:100vw; height:100vh;">
     <h1 style="position:absolute; top:10%; left:80%; color:white;">Jugador: @ViewBag.Player.Nombre</h1>
@@ -32,7 +28,7 @@
     <a href='@Url.Action("Descartar50","Home")' class="btn @disabled50" aria-disabled="@ariaDisabled50"
         style="position:absolute; top: 10%; left:5%;"><img src="/img/comodin50.png" width="110px"></a>
     <a href='@Url.Action("DobleChance","Home")' class="btn @disabledx2" aria-disabled="@ariaDisabledx2"
-        style="position:absolute; top: 10%; left:12%;"><img src="/img/comodinx2.png" width="105px"></a>
+        style="position:absolute; top: 10%; left:14%;"><img src="/img/comodinx2.png" width="110px"></a>
     <a href='@Url.Action("SaltearPregunta","Home")' class="btn @disabledSkip" aria-disabled="@ariaDisabledSkip"
-        style="position:absolute; top: 10%; left:19%;"><img src="/img/comodinSkip.png" width="110px"></a>
+        style="position:absolute; top: 10%; left:23%;"><img src="/img/comodinSkip.png" width="110px"></a>
 </div>
