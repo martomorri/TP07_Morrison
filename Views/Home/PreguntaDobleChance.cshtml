@@ -4,17 +4,17 @@
     @{
         string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo + 1) + ".png";
         <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:80%">
-        <h1 style="position:absolute; top:61%; left:23%; color:white; font-size:24px;">@ViewBag.Pregunta.TextoPregunta</h1>
+        <h1 style="position:absolute; top:60%; left:23%; color:white; font-size:24px;">@ViewBag.Pregunta.TextoPregunta</h1>
     }
     <form action='@Url.Action("PreguntaRespondida","Home")' method="POST">
         @{
             int topR = 0, leftR = 0;
             foreach (Respuesta resp in ViewBag.ListaRespuestas)
             {
-                if (resp.OpcionRespuesta == 'A') { topR = 75; leftR = 25; }
-                if (resp.OpcionRespuesta == 'B') { topR = 75; leftR = 60; }
-                if (resp.OpcionRespuesta == 'C') { topR = 87; leftR = 25; }
-                if (resp.OpcionRespuesta == 'D') { topR = 87; leftR = 60; }
+                if (resp.OpcionRespuesta == 'A') { topR = 73; leftR = 25; }
+                if (resp.OpcionRespuesta == 'B') { topR = 73; leftR = 60; }
+                if (resp.OpcionRespuesta == 'C') { topR = 85; leftR = 25; }
+                if (resp.OpcionRespuesta == 'D') { topR = 85; leftR = 60; }
                 <input type="checkbox" class="btn-check" name="Opcion" value="@resp.OpcionRespuesta" id="@resp.IdRespuesta"
                 autocomplete="off">
                 <label class="btn btn-outline-light"
@@ -22,8 +22,8 @@
                 for="@resp.IdRespuesta">@resp.TextoRespuesta</label><br>
             }
         }
-        <input type="submit" value="Enviar" class="btn btn-success"
-            style="position:absolute; top:82%; left:88%; font-size:32px;">
+        <button type="submit" style="position:absolute; top:82%; left:85%; border:0; padding:0;">
+            <img src="/img/enviar.png" width="200px"></button>
     </form>
     @{
         string disabled50 = "", disabledx2 = "", disabledSkip = "";

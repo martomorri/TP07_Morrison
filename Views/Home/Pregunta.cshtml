@@ -5,15 +5,15 @@
         string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo+1) + ".png";
         <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:80%">
         <div class="container">
-            <h1 style="position:absolute; top:61%; left:23%; color:white; font-size:24px">@ViewBag.Pregunta.TextoPregunta</h1>
+            <h1 style="position:absolute; top:60%; left:23%; color:white; font-size:24px">@ViewBag.Pregunta.TextoPregunta</h1>
         </div>
         int topR = 0, leftR = 0;
         foreach (Respuesta resp in ViewBag.ListaRespuestas)
         {
-            if (resp.OpcionRespuesta == 'A') { topR = 75; leftR = 25; }
-            if (resp.OpcionRespuesta == 'B') { topR = 75; leftR = 60; }
-            if (resp.OpcionRespuesta == 'C') { topR = 87; leftR = 25; }
-            if (resp.OpcionRespuesta == 'D') { topR = 87; leftR = 60; }
+            if (resp.OpcionRespuesta == 'A') { topR = 74; leftR = 25; }
+            if (resp.OpcionRespuesta == 'B') { topR = 74; leftR = 60; }
+            if (resp.OpcionRespuesta == 'C') { topR = 86; leftR = 25; }
+            if (resp.OpcionRespuesta == 'D') { topR = 86; leftR = 60; }
             <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion = resp.OpcionRespuesta})' class="text-decoration-none text-light"
             style="position:absolute; top:@topR%; left:@leftR%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
         }
