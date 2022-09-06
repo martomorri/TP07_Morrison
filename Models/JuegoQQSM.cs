@@ -8,7 +8,7 @@ using Dapper;
 namespace TP7_Morrison.Models;
 public static class JuegoQQSM
 {
-    private static string _connectionString = @"Server=LAPTOP-B9I9AIHD\SQLEXPRESS; DataBase=JuegoQQSM; Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-014; DataBase=JuegoQQSM; Trusted_Connection=True;";
     private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>(); private static List<Respuesta> _ListaRespuestas = new List<Respuesta>(); private static List<Pregunta> _ListaPreguntas = new List<Pregunta>();
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
@@ -79,18 +79,10 @@ public static class JuegoQQSM
         _RespuestaCorrectaActual = _ListaRespuestas[pos].OpcionRespuesta;
         return _ListaRespuestas;
     }
-    public static bool RespuestaUsuario(char Opcion, char OpcionComodin = ' ')
+    public static bool RespuestaUsuario(char Opcion)
     {
         _PreguntasRespondidas.Add(_PreguntaActual);
-        if (OpcionComodin != ' ')
-        {
-            using (SqlConnection db = new SqlConnection(_connectionString))
-            {
-                string sp = "ActualizarComodinDobleChance";
-                db.Execute(sp);
-            }
-        }
-        if (Opcion == _RespuestaCorrectaActual || OpcionComodin == _RespuestaCorrectaActual)
+        if (Opcion == _RespuestaCorrectaActual)
         {
             if (_ListaPozo[_PosicionPozo].ValorSeguro == true) _PozoAcumuladoSeguro = _ListaPozo[_PosicionPozo].Importe;
             if (_PosicionPozo < 14) _PosicionPozo++;
@@ -135,6 +127,14 @@ public static class JuegoQQSM
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sp = "ActualizarComodinSaltear";
+            db.Execute(sp);
+        }
+    }
+    public static void DobleChance()
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sp = "ActualizarComodinDobleChance";
             db.Execute(sp);
         }
     }

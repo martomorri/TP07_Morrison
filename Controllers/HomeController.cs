@@ -44,14 +44,16 @@ public class HomeController : Controller
         return View("Pregunta");
     }
 
-    public IActionResult PreguntaRespondida(char Opcion, char OpcionComodin = ' ')
+    public IActionResult PreguntaRespondida(char Opcion, bool DobleChance = false)
     {
-        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion, OpcionComodin);
+        bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion);
         int PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         if (PosicionPozo == 14 && Correcta) { ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro(); ViewBag.Player = JuegoQQSM.DevolverJugador();
         ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo(); return View("PantallaFinDelJuego"); }
-        else if(Correcta) { ViewBag.Player = JuegoQQSM.DevolverJugador(); ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
+        else if (Correcta) { ViewBag.Player = JuegoQQSM.DevolverJugador(); ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("RespuestaPreguntaOK"); }
+        else if (!Correcta && DobleChance) { ViewBag.Pregunta = JuegoQQSM.DevolverPregunta(); ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(); 
+        ViewBag.Player = JuegoQQSM.DevolverJugador(); ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo(); return View("Pregunta"); }
         else
         {
             ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro();
@@ -81,6 +83,7 @@ public class HomeController : Controller
 
     public IActionResult DobleChance()
     {
+        JuegoQQSM.DobleChance();
         ViewBag.Pregunta = JuegoQQSM.DevolverPregunta();
         ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
         ViewBag.Player = JuegoQQSM.DevolverJugador();
