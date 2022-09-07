@@ -6,7 +6,10 @@
     @{
         string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo+1) + ".png";
         <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:80%">
-        if (ViewBag.PozoAcumuladoSeguro == 2000000) { <img src="/img/acumulado3.png" style="position:relative; width:400px"> }
+        if (ViewBag.PozoAcumuladoSeguro == 2000000) {
+            <img src="/img/acumulado3.png" style="position:relative; width:400px">
+            <img src="/img/ganaste.png" style="position:absolute; top:2%; left:75% ; width:350px;">
+        }
         else if (ViewBag.PozoAcumuladoSeguro == 180000) { <img src="/img/acumulado2.png" style="position:relative; width:400px"> }
         else if (ViewBag.PozoAcumuladoSeguro == 30000) { <img src="/img/acumulado1.png" style="position:relative; width:400px"> }
         else { <img src="/img/acumulado0.png" style="position:relative; width:400px"> }

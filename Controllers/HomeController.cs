@@ -48,12 +48,12 @@ public class HomeController : Controller
     {
         bool Correcta = JuegoQQSM.RespuestaUsuario(Opcion);
         int PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
-        if (PosicionPozo == 14 && Correcta) { ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro(); ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo(); return View("PantallaFinDelJuego"); }
+        if (PosicionPozo == 15 && Correcta) { ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro(); ViewBag.Player = JuegoQQSM.DevolverJugador();
+        ViewBag.PosicionPozo = PosicionPozo - 1; return View("PantallaFinDelJuego"); }
         else if (Correcta) { ViewBag.Player = JuegoQQSM.DevolverJugador(); ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
         return View("RespuestaPreguntaOK"); }
         else if (!Correcta && DobleChance) { ViewBag.Pregunta = JuegoQQSM.DevolverPregunta(); ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas(); 
-        ViewBag.Player = JuegoQQSM.DevolverJugador(); ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo(); return View("Pregunta"); }
+        ViewBag.Player = JuegoQQSM.DevolverJugador(); ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo(); ViewBag.Incorrecta = Opcion; return View("Pregunta"); }
         else
         {
             ViewBag.PozoAcumuladoSeguro = JuegoQQSM.DevolverPozoAcumuladoSeguro();
