@@ -10,10 +10,10 @@
         int topR = 0, leftR = 0;
         foreach (Respuesta resp in ViewBag.ListaRespuestas)
         {
-            if (resp.OpcionRespuesta == 'A') { topR = 73; leftR = 25; }
-            if (resp.OpcionRespuesta == 'B') { topR = 73; leftR = 60; }
-            if (resp.OpcionRespuesta == 'C') { topR = 85; leftR = 25; }
-            if (resp.OpcionRespuesta == 'D') { topR = 85; leftR = 60; }
+            if (resp.OpcionRespuesta == 'A') { topR = 74; leftR = 25; }
+            if (resp.OpcionRespuesta == 'B') { topR = 74; leftR = 60; }
+            if (resp.OpcionRespuesta == 'C') { topR = 86; leftR = 25; }
+            if (resp.OpcionRespuesta == 'D') { topR = 86; leftR = 60; }
             <a href='@Url.Action("PreguntaRespondida","Home", new {Opcion = resp.OpcionRespuesta, DobleChance = true})' class="btn text-decoration-none text-light"
             style="position:absolute; top:@topR%; left:@leftR%; font-size:32px; border:0;">@resp.TextoRespuesta</a>
         }

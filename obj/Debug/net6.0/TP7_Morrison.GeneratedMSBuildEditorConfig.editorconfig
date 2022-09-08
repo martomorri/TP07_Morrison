@@ -8,57 +8,57 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TP7_Morrison
 build_property.RootNamespace = TP7_Morrison
-build_property.ProjectDir = C:\Users\marto\Documents\MARTIN ORT\4IB\Programacion 4IB\TP07_Morrison\
+build_property.ProjectDir = C:\Users\46873102\Desktop\TP07_Morrison\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\marto\Documents\MARTIN ORT\4IB\Programacion 4IB\TP07_Morrison
+build_property.MSBuildProjectDirectory = C:\Users\46873102\Desktop\TP07_Morrison
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/Index.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/PantallaFinDelJuego.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/PantallaFinDelJuego.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYW50YWxsYUZpbkRlbEp1ZWdvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/Pregunta.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/Pregunta.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcmVndW50YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/Pregunta5050.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/Pregunta5050.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcmVndW50YTUwNTAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/PreguntaDobleChance.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/PreguntaDobleChance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcmVndW50YURvYmxlQ2hhbmNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/Privacy.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Home/RespuestaPreguntaOK.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Home/RespuestaPreguntaOK.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXNwdWVzdGFQcmVndW50YU9LLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Shared/Error.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/_ViewImports.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/_ViewStart.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marto/Documents/MARTIN ORT/4IB/Programacion 4IB/TP07_Morrison/Views/Shared/_Layout.cshtml]
+[C:/Users/46873102/Desktop/TP07_Morrison/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-1bphqb6pza
