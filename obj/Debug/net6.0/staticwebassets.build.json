@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QITGRHdcizLLfbu1eX6p8RaOS8tGmpiC/YSGm+aTi2k=",
+  "Hash": "mghNSnTVKD5sC30EsRmHFn02exERkrDIZMwOqO1I4+s=",
   "Source": "TP7_Morrison",
   "BasePath": "_content/TP7_Morrison",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\46873102\\Desktop\\TP07_Morrison\\wwwroot\\img\\acumulado.png",
+      "SourceId": "TP7_Morrison",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\46873102\\Desktop\\TP07_Morrison\\wwwroot\\",
+      "BasePath": "_content/TP7_Morrison",
+      "RelativePath": "img/acumulado.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\acumulado.png"
     },
     {
       "Identity": "C:\\Users\\46873102\\Desktop\\TP07_Morrison\\wwwroot\\img\\acumulado0.png",

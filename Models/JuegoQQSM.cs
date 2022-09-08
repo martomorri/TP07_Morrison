@@ -9,10 +9,10 @@ namespace TP7_Morrison.Models;
 public static class JuegoQQSM
 {
     private static string _connectionString = @"Server=A-PHZ2-CIDI-034; DataBase=JuegoQQSM; Trusted_Connection=True;";
-    private static int _PreguntaActual, _PosicionPozo, _PozoAcumuladoSeguro, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>(); private static List<Respuesta> _ListaRespuestas = new List<Respuesta>(); private static List<Pregunta> _ListaPreguntas = new List<Pregunta>();
+    private static int _PreguntaActual, _PosicionPozo, _PozoAcumulado,_PozoAcumuladoSeguro, _DificultadPreguntaActual; private static char _RespuestaCorrectaActual; private static List<Pozo> _ListaPozo = new List<Pozo>(); private static Jugador _Player; private static List<int> _PreguntasRespondidas = new List<int>(); private static List<Respuesta> _ListaRespuestas = new List<Respuesta>(); private static List<Pregunta> _ListaPreguntas = new List<Pregunta>();
     public static void IniciarJuego(string Nombre, DateTime FechaHora)
     {
-        _PreguntaActual = 1; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 0; _PozoAcumuladoSeguro = 0;
+        _PreguntaActual = 1; _DificultadPreguntaActual = 1; _RespuestaCorrectaActual = ' '; _PosicionPozo = 0; _PozoAcumulado = 0; _PozoAcumuladoSeguro = 0;
         _ListaPozo.Add(new Pozo(2000, false));
         _ListaPozo.Add(new Pozo(5000, false));
         _ListaPozo.Add(new Pozo(10000, false));
@@ -84,6 +84,7 @@ public static class JuegoQQSM
         _PreguntasRespondidas.Add(_PreguntaActual);
         if (Opcion == _RespuestaCorrectaActual)
         {
+            _PozoAcumulado = _ListaPozo[_PosicionPozo].Importe;
             if (_ListaPozo[_PosicionPozo].ValorSeguro == true) _PozoAcumuladoSeguro = _ListaPozo[_PosicionPozo].Importe;
             if (_PosicionPozo < 15) _PosicionPozo++;
             return true;
@@ -150,6 +151,10 @@ public static class JuegoQQSM
     public static int DevolverPozoAcumuladoSeguro()
     {
         return _PozoAcumuladoSeguro;
+    }
+    public static int DevolverPozoAcumulado()
+    {
+        return _PozoAcumulado;
     }
     public static Pregunta DevolverPregunta()
     {
