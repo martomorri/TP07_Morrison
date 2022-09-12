@@ -28,11 +28,7 @@ public class HomeController : Controller
     {
         DateTime FechaHora = DateTime.Now;
         JuegoQQSM.IniciarJuego(Nombre, FechaHora);
-        ViewBag.Pregunta = JuegoQQSM.ObtenerProximaPregunta();
-        ViewBag.ListaRespuestas = JuegoQQSM.ObtenerRespuestas();
-        ViewBag.Player = JuegoQQSM.DevolverJugador();
-        ViewBag.PosicionPozo = JuegoQQSM.DevolverPosicionPozo();
-        return View("Pregunta");
+        return View("Tutorial");
     }
 
     public IActionResult Pregunta()

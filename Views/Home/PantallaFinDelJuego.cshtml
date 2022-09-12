@@ -6,7 +6,7 @@
     @{
         string ImagenPozo = "/img/pozo" + (ViewBag.PosicionPozo+1) + ".png";
         <img src="@ImagenPozo" width="300px" style="position:absolute; top:15%; left:80%">
-        <img src="/img/acumulado.png" style="position:relative; width:600px"><p style="position:relative; color:white; font-size:72px;">$@ViewBag.PozoAcumulado</p>
+        <img src="/img/acumulado.png" style="position:relative; width:600px"><p style="position:absolute; top:85%; left:32%; color:white; font-size:72px;">$@ViewBag.PozoAcumulado</p>
         if (ViewBag.PozoAcumulado == 2000000) {
             <img src="/img/ganaste.png" style="position:absolute; top:2%; left:75% ; width:350px;">
         }
